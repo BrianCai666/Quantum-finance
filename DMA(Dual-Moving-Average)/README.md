@@ -57,6 +57,24 @@ cd aapl-moving-average-strategy
 
 pip install -r requirements.txt
 
+## 🌐 Proxy Configuration (Optional)
+
+If you need a proxy to access Yahoo Finance, the script will automatically read from environment variables. No hardcoded proxy addresses are included in the code.
+
+### Setting up Proxy
+
+In `DMA-APPL.ipynb`, locate these lines:
+
+```python
+proxy = 'http://127.0.0.1:7890'  # 将7890替换成你的代理端口
+os.environ['HTTP_PROXY'] = proxy
+os.environ['HTTPS_PROXY'] = proxy
+```
+If you need a proxy: Change 7890 to your local port (e.g., Clash: 7890, V2Ray: 10809)
+
+If you don't need a proxy: Comment out all three lines (add # at the beginning of each line)
+
+💡 How to find your proxy port? Check your proxy tool (Clash, V2Ray, Shadowsocks) settings — look for "HTTP Port" or "Local Port".
 ## 💻 Usage
 
 ### Basic Execution
