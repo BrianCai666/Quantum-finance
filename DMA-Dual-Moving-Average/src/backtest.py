@@ -1,3 +1,6 @@
+import numpy as np
+
+
 def calculate_returns(data):
     """计算策略收益"""
     data['Returns'] = data['Close'].pct_change()
@@ -35,3 +38,36 @@ def sharpe_ratio(returns, rf=0):
         # 开平方：因为夏普比率计算得失收益/风险比率
         # 公式：年化夏普 = 日夏普 * （252 ** 0.5）
         # 夏普比率 = （平均日收益率 - 无风险利率）/ 日收益率标准差 * （252 ** 0.5）
+
+def sortino_ratio(returns,rf = 0):
+    """计算Sortino比率"""
+    # 1.删除缺失值
+    daily_returns = returns.dropna()
+
+    # 2.只取负收益（下跌的日子）
+    negative_returns = daily_returns[daily_returns < 0]
+
+    # 3.如果没有负收益，下跌标准差为0（避免除以0）
+    if len(negative_returns) == 0:
+        return np.nan
+
+    # 4.计算平均负收益
+    avg_returns = negative_returns.mean()
+
+    # 5.计算每个负收益与平均值的差的平方
+    squared_deviations = (negative_returns - avg_returns) ** 2
+
+    # 6.求和，除以（天数 - 1）
+    variance_downside = squared_deviations.sum() / (len(negative_returns) - 1)
+
+    # 7.开方，得到下跌标准差
+    downside_deviations = np.sqrt(variance_downside)
+
+    # 计算Sortino比率（年化）
+    # 防止downside_deviation 为 0
+    if downside_deviations == 0:
+        return np.nan
+
+    sortino_ratio = (returns.mean() - rf) / downside_deviations * (252 ** 0.5)
+
+    return sortino_ratio
