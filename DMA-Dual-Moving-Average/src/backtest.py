@@ -1,11 +1,25 @@
+Slippage = 0.001
+Commission = 0.0005
+
 def calculate_returns(data):
-    """计算策略收益"""
+    """计算策略收益（含交易成本）"""
+    # 原始市场收益率（保留用于对比）
     data['Returns'] = data['Close'].pct_change()
     # 作用：计算日收益率
     # 公式：（当日收盘价 - 前日收盘价）/ 前日收盘价
     # pct_change():Pandas库中的一个方法，专门用于计算百分比变化（Percentage Change)
     # pct_change = (当前值 - 前一个值) / 前一个值，恰好吻合日收益率计算
-    data['Strategy_Returns'] = data['Signal'].shift(1) * data['Returns']
+
+    # 计算带成本的买卖价格
+    # 买入价：前日收盘价 * （1 + 滑点）+ 佣金
+    buy_price = data['Close'].shift(1) * (1 + Slippage) + Commission
+
+    # 卖出价：当日收盘价 * （1 - 滑点）- 佣金
+    sell_price = data['Close'].shift(1) * (1 - Slippage) + Commission
+
+    # 带成本的收益率
+    # 只有当有交易的时才计算，否则收益为0
+    data['Strategy_Returns'] = data['Signal'].shift(1) * (sell_price - buy_price) / buy_price
     # data['Signal'].shift(1):将交易信号向后移动一天，防止未来函数（定义：在计算过程中的某个时间点，使用了“未来”才会产生的数据）
     # 例如：今天收盘后根据信号决定交易，但只能在明天开盘执行，故往后延一天
     # 乘法：信号 * 收益率
