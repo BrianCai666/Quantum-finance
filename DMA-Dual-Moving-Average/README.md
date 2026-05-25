@@ -32,9 +32,7 @@ The strategy follows a simple moving average crossover approach:
 
 ## 🛠️ Prerequisites
 
-Ensure you have Python 3.7+ installed on your system. The following packages are required:
-
-pip install yfinance pandas numpy matplotlib mplfinance
+Ensure you have Python 3.8+ installed on your system. Python 3.9 or 3.10 is recommended.
 
 ## 📦 Dependencies
 
@@ -49,14 +47,14 @@ pip install yfinance pandas numpy matplotlib mplfinance
 ## 🔧 Installation
 
 1. Clone the repository:
-
-git clone https://github.com/yourusername/aapl-moving-average-strategy.git
-cd aapl-moving-average-strategy
-
+```cmd
+git clone https://github.com/BrianCai666/Quantum-finance.git
+cd Quantum-finance/DMA-Dual-Moving-Average
+```
 2. Install required packages:
-
+```cmd
 pip install -r requirements.txt
-
+```
 ## 🌐 Proxy Configuration (Optional)
 
 If you need a proxy to access Yahoo Finance, the script will automatically read from environment variables. No hardcoded proxy addresses are included in the code.
@@ -80,36 +78,38 @@ If you don't need a proxy: Comment out all three lines (add # at the beginning o
 ### Basic Execution
 
 Run the script directly:
-
+```cmd
 python aapl_ma_strategy.py
-
+```
 ### Configuration
 
 Modify the following parameters in the script as needed:
 
 
 # Change stock ticker or date range
+```cmd
 data = yf.download('AAPL', start='2025-01-01', end='2025-12-31')
-
+```
 # Adjust moving average periods
+```cmd
 data['MA5'] = data['Close'].rolling(window=5).mean()  # Short-term MA
 data['MA20'] = data['Close'].rolling(window=20).mean()  # Long-term MA
-
+```
 ## 📈 Output Examples
 
 ### Console Output
-
+```cmd
 ==================================================
 双均线策略表现报告（修正版）
 ==================================================
-总交易次数: 12
-胜率: 58.33%
-策略总收益率: 15.67%
-买入持有收益率: 12.34%
-超额收益: 3.33%
-年化收益率: 15.67%
-最大回撤: -8.45%
-
+总交易次数: 8
+胜率: 0.00%
+策略总收益率: -12.98%
+买入持有收益率: 16.24%
+超额收益: -29.21%
+年化收益率: -14.13%
+最大回撤: -22.21%
+```
 ### Visual Outputs
 
 1. **Candlestick Chart**: Displays price action with MA5 (blue) and MA20 (orange) overlays
@@ -303,7 +303,7 @@ If you want to continue using this strategy, here are suggested improvements:
 
 ## 📝 License
 
-This project is for educational purposes only. Trading stocks involves risk, and past performance does not guarantee future results.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## ⚖️ Disclaimer
 

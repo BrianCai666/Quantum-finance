@@ -1,0 +1,17 @@
+# Core dependencies for data fetching and data manipulation
+yfinance>=0.2.28
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Visualization
+matplotlib>=3.7.0
+mplfinance>=0.12.7
+
+# For CSV/Excel export (Future Improvements)
+openpyxl>=3.1.0
+
+# Optional: Technical indicators (if you plan to add RSI, MACD, etc.)
+# ta>=0.10.0
+
+# Optional: Advanced statistical calculations
+# scipy>=1.10.0

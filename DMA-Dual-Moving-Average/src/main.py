@@ -5,7 +5,7 @@ from strategy import add_ma, generate_signals
 from backtest import calculate_returns, sharpe_ratio
 # backtest: 回测评估模块，计算收益和风险指标
 
-data = get_data('AAPL','2025-01-01','2025-12-31')
+data = get_data('AAPL','2024-01-01','2024-12-31')
 # 获取苹果公司（AAPL）2025全年的历史数据
 data = add_ma(data)
 # 计算移动平均线
